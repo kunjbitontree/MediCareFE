@@ -3,41 +3,28 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Dashboard from "@/components/Dashboard";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 export default function DashboardPage() {
   const router = useRouter();
-  
-  // Initialize state from localStorage to avoid effect setState
-  const [authState] = useState<{
-    isAuthenticated: boolean;
-    userEmail: string;
-    isLoading: boolean;
-  }>(() => {
-    if (typeof window !== "undefined") {
-      const authStatus = localStorage.getItem("isAuthenticated");
-      const email = localStorage.getItem("userEmail");
-      
-      if (authStatus === "true" && email) {
-        return {
-          isAuthenticated: true,
-          userEmail: email,
-          isLoading: false,
-        };
-      }
-    }
-    return {
-      isAuthenticated: false,
-      userEmail: "",
-      isLoading: false,
-    };
-  });
+  const [mounted, setMounted] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
-    // Redirect if not authenticated
-    if (!authState.isAuthenticated) {
-      router.push("/login");
-    }
-  }, [authState.isAuthenticated, router]);
+    const checkAuth = () => {
+      const authStatus = localStorage.getItem("isAuthenticated");
+      const email = localStorage.getItem("userEmail");
+
+      if (authStatus === "true" && email) {
+        setUserEmail(email);
+        setMounted(true);
+      } else {
+        router.push("/login");
+      }
+    };
+
+    checkAuth();
+  }, [router]);
 
   const handleLogout = () => {
     localStorage.removeItem("isAuthenticated");
@@ -45,7 +32,7 @@ export default function DashboardPage() {
     router.push("/login");
   };
 
-  if (authState.isLoading) {
+  if (!mounted) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
@@ -56,9 +43,9 @@ export default function DashboardPage() {
     );
   }
 
-  if (!authState.isAuthenticated) {
-    return null;
-  }
-
-  return <Dashboard userEmail={authState.userEmail} onLogout={handleLogout} />;
+  return (
+    <ThemeProvider>
+      <Dashboard userEmail={userEmail} onLogout={handleLogout} />
+    </ThemeProvider>
+  );
 }

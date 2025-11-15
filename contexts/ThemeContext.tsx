@@ -17,11 +17,20 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     if (typeof window !== "undefined") {
       const savedTheme = localStorage.getItem("theme") as Theme;
       if (savedTheme) {
+        // Add no-transition class on initial load to prevent flash
+        document.documentElement.classList.add("no-transition");
+        
         if (savedTheme === "dark") {
           document.documentElement.classList.add("dark");
         } else {
           document.documentElement.classList.remove("dark");
         }
+        
+        // Remove no-transition class after a brief delay
+        setTimeout(() => {
+          document.documentElement.classList.remove("no-transition");
+        }, 100);
+        
         return savedTheme;
       }
     }
@@ -30,16 +39,27 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
-    console.log("Toggling theme from", theme, "to", newTheme);
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
     
-    if (newTheme === "dark") {
-      document.documentElement.classList.add("dark");
-      console.log("Dark mode enabled");
+    // Ensure no-transition is removed
+    document.documentElement.classList.remove("no-transition");
+    
+    // Function to apply theme
+    const applyTheme = () => {
+      if (newTheme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+      setTheme(newTheme);
+      localStorage.setItem("theme", newTheme);
+    };
+    
+    // Use View Transitions API if available for smoother transition
+    if (typeof document !== 'undefined' && 'startViewTransition' in document) {
+      (document).startViewTransition(() => applyTheme());
     } else {
-      document.documentElement.classList.remove("dark");
-      console.log("Light mode enabled");
+      // Fallback to regular transition
+      applyTheme();
     }
   };
 

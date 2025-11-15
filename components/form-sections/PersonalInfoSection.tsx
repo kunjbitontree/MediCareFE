@@ -186,13 +186,11 @@ export default function PersonalInfoSection({
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Emergency Contact Phone
-              <span className="text-xs text-gray-500 font-normal ml-2">(10 digits required)</span>
             </label>
             <input
               type="tel"
               value={formData.emergencyContact}
               onChange={(e) => {
-                // Only allow digits and limit to 10
                 const value = e.target.value.replace(/\D/g, '').slice(0, 10);
                 onChange("emergencyContact", value);
                 if (formErrors.emergencyContact) clearError("emergencyContact");

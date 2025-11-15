@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
+import Navbar from "@/components/Navbar";
 import AddPatientForm from "@/components/AddPatientForm";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import { patientAPI } from "@/lib/api";
 
 interface Patient {
@@ -16,7 +17,6 @@ interface Patient {
 }
 
 export default function AppointmentsPage() {
-  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [patients, setPatients] = useState<Patient[]>([]);
@@ -24,6 +24,12 @@ export default function AppointmentsPage() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [userEmail, setUserEmail] = useState("");
+
+  useEffect(() => {
+    const email = localStorage.getItem("userEmail");
+    if (email) setUserEmail(email);
+  }, []);
 
   useEffect(() => {
     fetchPatients();
@@ -157,7 +163,8 @@ export default function AppointmentsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:via-gray-900 dark:to-slate-900 flex overflow-x-hidden transition-colors duration-300">
+    <ThemeProvider>
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:via-gray-900 dark:to-slate-900 flex overflow-x-hidden transition-colors duration-300">
       {/* Mobile Overlay */}
       {sidebarOpen && (
         <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" onClick={() => setSidebarOpen(false)}></div>
@@ -168,27 +175,13 @@ export default function AppointmentsPage() {
 
       {/* Main Content */}
       <div className="flex-1 lg:ml-64 w-full min-w-0">
-        {/* Header */}
-        <header className="bg-white/80 dark:bg-gray-800/90 backdrop-blur-lg shadow-lg border-b border-gray-200 dark:border-gray-700/50 sticky top-0 z-30 transition-all duration-300">
-          <div className="px-4 sm:px-6 lg:px-8 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <button
-                  onClick={() => setSidebarOpen(true)}
-                  className="lg:hidden text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                  </svg>
-                </button>
-                <div>
-                  <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">Patient Timeline</h1>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mt-0.5">View patient admission and discharge schedule</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </header>
+        {/* Navbar */}
+        <Navbar 
+          title="Patient Timeline" 
+          subtitle="View patient admission and discharge schedule"
+          setSidebarOpen={setSidebarOpen}
+          userEmail={userEmail}
+        />
 
         <main className="px-0 sm:px-6 lg:px-8 py-6">
           <div className="w-full max-w-full px-4 sm:px-0">
@@ -312,7 +305,7 @@ export default function AppointmentsPage() {
                           {/* Patient Name & Dates */}
                           <div
                             className="flex items-center gap-2 cursor-pointer p-2 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700/80 dark:to-gray-700/60 rounded-lg hover:from-blue-50 hover:to-purple-50 dark:hover:from-gray-600 dark:hover:to-gray-600 transition-all min-[600px]:sticky left-0 z-10 shadow-md border border-gray-200 dark:border-gray-600/50 hover:scale-[1.02]"
-                            onClick={() => router.push("/patients")}
+                            onClick={() => window.location.href = "/patients"}
                           >
                             <div
                               className={`w-8 h-8 ${getPatientColor(patientIndex)} rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0 shadow-lg`}
@@ -393,6 +386,7 @@ export default function AppointmentsPage() {
           loading={saving}
         />
       )}
-    </div>
+      </div>
+    </ThemeProvider>
   );
 }

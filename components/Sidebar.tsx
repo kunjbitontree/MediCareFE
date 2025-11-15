@@ -44,8 +44,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, onAddPatient }: S
               </svg>
             </div>
             <div>
-              <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">Hospital</h2>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Management</p>
+              <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">MediCare</h2>
             </div>
           </div>
           <button onClick={() => setSidebarOpen(false)} className="lg:hidden text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
@@ -115,13 +114,13 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, onAddPatient }: S
         </nav>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-gray-200 dark:border-gray-700/50 bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-800/80 shadow-lg">
+      <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
         <button
           onClick={() => {
             onAddPatient();
             setSidebarOpen(false);
           }}
-          className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 dark:from-blue-600 dark:via-purple-600 dark:to-blue-600 text-white hover:from-blue-700 hover:via-purple-700 hover:to-blue-700 dark:hover:from-blue-500 dark:hover:via-purple-500 dark:hover:to-blue-500 px-4 py-4 rounded-xl font-bold transition-all shadow-xl hover:shadow-2xl dark:shadow-blue-900/50 flex items-center justify-center gap-2 hover:scale-105"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />

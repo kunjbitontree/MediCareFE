@@ -207,7 +207,7 @@ export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex overflow-x-hidden transition-colors duration-200">
+    <div className="h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:via-gray-900 dark:to-slate-900 flex overflow-hidden transition-colors duration-300">
       {/* Mobile Overlay */}
       {sidebarOpen && (
         <div
@@ -224,9 +224,9 @@ export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
       />
 
       {/* Main Content */}
-      <div className="flex-1 lg:ml-64 w-full min-w-0">
+      <div className="flex-1 lg:ml-64 w-full min-w-0 flex flex-col h-screen overflow-hidden">
         {/* Header */}
-        <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-30 transition-colors duration-200">
+        <header className="bg-white/80 dark:bg-gray-800/90 backdrop-blur-lg shadow-lg border-b border-gray-200 dark:border-gray-700/50 sticky top-0 z-30 transition-all duration-300">
           <div className="px-4 sm:px-6 lg:px-8 py-4 w-full">
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-4">
@@ -239,8 +239,8 @@ export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
                   </svg>
                 </button>
                 <div>
-                  <h1 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-100">Patient Dashboard</h1>
-                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-0.5 hidden sm:block">
+                  <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">Patient Dashboard</h1>
+                  <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 mt-0.5 hidden sm:block">
                     Manage and monitor patient information
                   </p>
                 </div>
@@ -251,7 +251,7 @@ export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
                     console.log("Current theme before toggle:", theme);
                     toggleTheme();
                   }}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all border border-gray-300 dark:border-gray-600"
+                  className="flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-100 dark:bg-gray-700/80 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all border border-gray-300 dark:border-gray-600/50 shadow-sm hover:shadow-md"
                   title={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
                 >
                   {theme === "light" ? (
@@ -272,18 +272,18 @@ export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
                     </>
                   )}
                 </button>
-                <div className="hidden md:flex items-center gap-3 px-3 sm:px-4 py-2 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
-                  <div className="w-8 h-8 sm:w-9 sm:h-9 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                <div className="hidden md:flex items-center gap-3 px-3 sm:px-4 py-2 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700/80 dark:to-gray-700/60 rounded-xl border border-gray-200 dark:border-gray-600/50 shadow-sm">
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-sm shadow-md">
                     {userEmail?.charAt(0).toUpperCase() || "A"}
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">{userEmail || "Admin"}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Administrator</p>
+                    <p className="text-sm font-semibold text-gray-800 dark:text-white">{userEmail || "Admin"}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-300">Administrator</p>
                   </div>
                 </div>
                 <button
                   onClick={onLogout}
-                  className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium transition-all shadow-sm hover:shadow-md"
+                  className="flex items-center gap-2 bg-gradient-to-r from-red-600 to-red-700 dark:from-red-600 dark:to-red-700 hover:from-red-700 hover:to-red-800 dark:hover:from-red-500 dark:hover:to-red-600 text-white px-3 sm:px-4 py-2.5 rounded-xl font-bold transition-all shadow-lg hover:shadow-xl dark:shadow-red-900/50 hover:scale-105"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -295,56 +295,56 @@ export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
           </div>
         </header>
 
-        <main className="px-4 sm:px-6 lg:px-8 py-4 sm:py-6 w-full max-w-full">
+        <main className="px-4 sm:px-6 lg:px-8 py-4 sm:py-6 w-full max-w-full flex-1 overflow-y-auto">
         {/* Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-6 w-full">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-l-4 border-blue-500 p-6 hover:shadow-lg transition-all">
+          <div className="bg-gradient-to-br from-white to-blue-50 dark:from-gray-800 dark:to-gray-800/80 rounded-2xl shadow-lg dark:shadow-xl border-l-4 border-blue-500 dark:border-blue-400 p-6 hover:shadow-2xl dark:hover:shadow-blue-900/30 transition-all duration-300 hover:scale-105">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Total Patients</div>
-                <div className="text-4xl font-bold text-gray-800 dark:text-gray-100 mt-2">{stats.total}</div>
+                <div className="text-sm font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wide">Total Patients</div>
+                <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-400 dark:to-blue-500 bg-clip-text text-transparent mt-2">{stats.total}</div>
               </div>
-              <div className="bg-blue-50 dark:bg-blue-900/30 p-3 rounded-xl">
-                <svg className="w-8 h-8 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/50 dark:to-blue-800/50 p-4 rounded-2xl shadow-md">
+                <svg className="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               </div>
             </div>
           </div>
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-l-4 border-green-500 p-6 hover:shadow-lg transition-all">
+          <div className="bg-gradient-to-br from-white to-green-50 dark:from-gray-800 dark:to-gray-800/80 rounded-2xl shadow-lg dark:shadow-xl border-l-4 border-green-500 dark:border-green-400 p-6 hover:shadow-2xl dark:hover:shadow-green-900/30 transition-all duration-300 hover:scale-105">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Currently Admitted</div>
-                <div className="text-4xl font-bold text-gray-800 dark:text-gray-100 mt-2">{stats.admitted}</div>
+                <div className="text-sm font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wide">Currently Admitted</div>
+                <div className="text-4xl font-bold bg-gradient-to-r from-green-600 to-green-700 dark:from-green-400 dark:to-green-500 bg-clip-text text-transparent mt-2">{stats.admitted}</div>
               </div>
-              <div className="bg-green-50 dark:bg-green-900/30 p-3 rounded-xl">
-                <svg className="w-8 h-8 text-green-500 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/50 dark:to-green-800/50 p-4 rounded-2xl shadow-md">
+                <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
               </div>
             </div>
           </div>
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-l-4 border-purple-500 p-6 hover:shadow-lg transition-all">
+          <div className="bg-gradient-to-br from-white to-purple-50 dark:from-gray-800 dark:to-gray-800/80 rounded-2xl shadow-lg dark:shadow-xl border-l-4 border-purple-500 dark:border-purple-400 p-6 hover:shadow-2xl dark:hover:shadow-purple-900/30 transition-all duration-300 hover:scale-105">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Discharged</div>
-                <div className="text-4xl font-bold text-gray-800 dark:text-gray-100 mt-2">{stats.discharged}</div>
+                <div className="text-sm font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wide">Discharged</div>
+                <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-purple-700 dark:from-purple-400 dark:to-purple-500 bg-clip-text text-transparent mt-2">{stats.discharged}</div>
               </div>
-              <div className="bg-purple-50 dark:bg-purple-900/30 p-3 rounded-xl">
-                <svg className="w-8 h-8 text-purple-500 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900/50 dark:to-purple-800/50 p-4 rounded-2xl shadow-md">
+                <svg className="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
             </div>
           </div>
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-l-4 border-orange-500 p-6 hover:shadow-lg transition-all">
+          <div className="bg-gradient-to-br from-white to-orange-50 dark:from-gray-800 dark:to-gray-800/80 rounded-2xl shadow-lg dark:shadow-xl border-l-4 border-orange-500 dark:border-orange-400 p-6 hover:shadow-2xl dark:hover:shadow-orange-900/30 transition-all duration-300 hover:scale-105">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">New Today</div>
-                <div className="text-4xl font-bold text-gray-800 dark:text-gray-100 mt-2">{stats.newToday}</div>
+                <div className="text-sm font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wide">New Today</div>
+                <div className="text-4xl font-bold bg-gradient-to-r from-orange-600 to-orange-700 dark:from-orange-400 dark:to-orange-500 bg-clip-text text-transparent mt-2">{stats.newToday}</div>
               </div>
-              <div className="bg-orange-50 dark:bg-orange-900/30 p-3 rounded-xl">
-                <svg className="w-8 h-8 text-orange-500 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="bg-gradient-to-br from-orange-100 to-orange-200 dark:from-orange-900/50 dark:to-orange-800/50 p-4 rounded-2xl shadow-md">
+                <svg className="w-8 h-8 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                 </svg>
               </div>
@@ -354,15 +354,15 @@ export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
 
         {/* Error Message */}
         {error && (
-          <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded-lg">
+          <div className="bg-red-50 dark:bg-red-900/30 border-l-4 border-red-500 dark:border-red-400 p-4 mb-6 rounded-xl shadow-lg dark:shadow-red-900/20">
             <div className="flex items-center gap-3">
-              <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-red-500 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <p className="text-sm text-red-700">{error}</p>
+              <p className="text-sm text-red-700 dark:text-red-300 font-medium">{error}</p>
               <button
                 onClick={() => setError(null)}
-                className="ml-auto text-red-500 hover:text-red-700"
+                className="ml-auto text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -374,19 +374,22 @@ export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
 
         {/* Loading Indicator */}
         {loading && (
-          <div className="bg-blue-50 border border-blue-200 p-4 mb-6 rounded-lg">
+          <div className="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800/50 p-4 mb-6 rounded-xl shadow-lg dark:shadow-blue-900/20">
             <div className="flex items-center gap-3">
-              <svg className="animate-spin h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <div className="relative">
+                <svg className="animate-spin h-5 w-5 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              <p className="text-sm text-blue-700 font-medium">Loading patients...</p>
+                <div className="absolute inset-0 blur-xl bg-blue-500/30 dark:bg-blue-400/20 animate-pulse"></div>
+              </div>
+              <p className="text-sm text-blue-700 dark:text-blue-300 font-medium">Loading patients...</p>
             </div>
           </div>
         )}
 
         {/* Filters */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-5 mb-6 w-full transition-colors duration-200">
+        <div className="bg-white dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-800/80 rounded-2xl shadow-lg dark:shadow-xl border border-gray-200 dark:border-gray-700/50 p-4 sm:p-5 mb-6 w-full transition-all duration-300">
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full">
             <div className="flex-1 min-w-0">
               <div className="relative">
@@ -395,18 +398,18 @@ export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
                   placeholder="Search patients..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-11 pr-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white dark:bg-gray-700 dark:text-gray-100"
+                  className="w-full pl-11 pr-4 py-3 border-2 border-gray-300 dark:border-gray-600/50 rounded-xl focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-blue-500 dark:focus:border-blue-400 transition-all bg-white dark:bg-gray-800/80 dark:text-gray-100 shadow-sm dark:shadow-lg placeholder:text-gray-400 dark:placeholder:text-gray-500"
                 />
-                <svg className="absolute left-3.5 top-3 w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="absolute left-3.5 top-3.5 w-5 h-5 text-gray-400 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
             </div>
-            <div className="w-full sm:w-48 flex-shrink-0">
+            <div className="w-full sm:w-52 flex-shrink-0">
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
-                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-medium bg-white dark:bg-gray-700 dark:text-gray-100"
+                className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600/50 rounded-xl focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-blue-500 dark:focus:border-blue-400 transition-all font-semibold bg-white dark:bg-gray-800/80 dark:text-gray-100 shadow-sm dark:shadow-lg"
               >
                 <option value="All">All Patients</option>
                 <option value="Admitted">Currently Admitted</option>
@@ -418,14 +421,13 @@ export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
         </div>
 
         {/* Patient Table */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden border border-gray-200 dark:border-gray-700 w-full transition-colors duration-200">
+        <div className="bg-white dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-800/80 rounded-2xl shadow-lg dark:shadow-xl overflow-hidden border border-gray-200 dark:border-gray-700/50 w-full transition-all duration-300">
           {/* Mobile Card View */}
           <div className="block lg:hidden w-full">
             {currentPatients.map((patient) => (
               <div
                 key={patient.id}
-                onClick={() => (window.location.href = "/patients")}
-                className="border-b border-gray-200 dark:border-gray-700 p-4 hover:bg-gray-50 dark:hover:bg-gray-700 w-full transition-colors cursor-pointer"
+                className="border-b border-gray-200 dark:border-gray-700 p-4 w-full"
               >
                 <div className="flex items-start gap-3 mb-3 w-full">
                   <div className="flex-shrink-0 h-12 w-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold text-lg">
@@ -523,8 +525,7 @@ export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
                 {currentPatients.map((patient) => (
                   <tr
                     key={patient.id}
-                    onClick={() => (window.location.href = "/patients")}
-                    className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                    className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                   >
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
@@ -655,10 +656,10 @@ export default function Dashboard({ userEmail, onLogout }: DashboardProps) {
       {/* Mobile Add Button */}
       <button
         onClick={() => setShowAddModal(true)}
-        className="lg:hidden fixed bottom-6 right-6 bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-full shadow-xl hover:shadow-2xl hover:scale-110 transition-all z-30"
+        className="lg:hidden fixed bottom-6 right-6 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 dark:from-blue-600 dark:via-purple-600 dark:to-blue-600 hover:from-blue-700 hover:via-purple-700 hover:to-blue-700 dark:hover:from-blue-500 dark:hover:via-purple-500 dark:hover:to-blue-500 text-white p-5 rounded-full shadow-2xl hover:shadow-3xl dark:shadow-blue-900/50 hover:scale-110 transition-all z-30 ring-4 ring-white dark:ring-gray-800"
       >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+        <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
         </svg>
       </button>
 

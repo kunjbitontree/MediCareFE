@@ -10,7 +10,7 @@ function getFieldNameForDocType(docType: string): string {
     case 'Doctor Certificate':
       return 'doctor_medical_certificate';
     case 'Discharge Note':
-      return 'patient_discharge_summary_pdf';
+      return 'discharge_summary_pdf';
     default:
       return 'bill_details';
   }
